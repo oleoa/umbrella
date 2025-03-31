@@ -1,14 +1,10 @@
-import { login, signup } from "@/app/auth/actions";
+import AuthForm from "./form";
 
-export default function LoginPage() {
+export default function AuthPage() {
   return (
-    <form>
-      <label htmlFor="email">Email:</label>
-      <input id="email" name="email" type="email" required />
-      <label htmlFor="password">Password:</label>
-      <input id="password" name="password" type="password" required />
-      <button formAction={login}>Log in</button>
-      <button formAction={signup}>Sign up</button>
-    </form>
+    <main className="flex flex-col justify-center items-center h-screen gap-4">
+      <h1>Auth</h1>
+      <AuthForm />
+    </main>
   );
 }
