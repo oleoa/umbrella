@@ -9,7 +9,6 @@ const initialState: FormState = {
   message: '',
   success: null,
   errors: [],
-  redirect: null,
 }
 
 interface Props {

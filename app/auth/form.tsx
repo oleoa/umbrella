@@ -4,18 +4,15 @@ import { useActionState, useEffect } from 'react'
 import { login, signup } from '@/app/auth/actions'
 import { useSnackbar } from '@/components/SnackbarProvider'
 import { FormState } from '@/interfaces'
-import { useRouter } from 'next/navigation'
 
 const initialState: FormState = {
   message: '',
   success: null,
   errors: [],
-  redirect: null,
 }
 
 export default function AuthForm() {
   const { snackbar } = useSnackbar()
-  const router = useRouter()
 
   const [loginState, loginAction, loginPending] = useActionState<FormState, FormData>(login, initialState)
   const [signupState, signupAction, signupPending] = useActionState<FormState, FormData>(signup, initialState)
@@ -23,10 +20,8 @@ export default function AuthForm() {
   useEffect(() => {
     if (loginState.success === false) loginState.errors.forEach((error) => snackbar.error(error))
     if (signupState.success === false) signupState.errors.forEach((error) => snackbar.error(error))
-    if (loginState.success === true) {
-      snackbar.success(loginState.message || '')
-      if (loginState.redirect) router.push(loginState.redirect)
-    }
+    if (loginState.success === true) snackbar.success(loginState.message || '')
+
     if (signupState.success === true) snackbar.success(signupState.message || '')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginState, signupState])

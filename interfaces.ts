@@ -2,7 +2,6 @@ export interface FormState {
   message: string | null
   success: boolean | null
   errors: string[]
-  redirect: string | null
 }
 
 export interface Account {
@@ -10,4 +9,11 @@ export interface Account {
   last_name: string | null
   birthday: string | null
   currency: string | null
+}
+
+export interface Budget {
+  id: number
+  name: string
+  starts_at: string
+  ends_at: string
 }

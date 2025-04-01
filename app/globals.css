@@ -14,9 +14,9 @@ select {
 }
 
 body { @apply bg-black text-white }
-nav { @apply fixed top-0 left-0 h-16 w-screen bg-purple flex items-center justify-end px-64 gap-4 }
-main { @apply px-64 }
-footer { @apply px-64 }
+nav { @apply fixed top-0 left-0 h-16 w-screen bg-purple flex items-center justify-end xl:px-64 px-32 gap-4 }
+main { @apply xl:px-64 px-32 }
+footer { @apply xl:px-64 px-32 }
 
 h1 { @apply text-5xl }
 h2 { @apply text-4xl }
@@ -26,9 +26,12 @@ h5 { @apply text-xl }
 h6 { @apply text-lg }
 
 label { @apply flex items-center justify-start text-xl }
-input, textarea, select { @apply border-1 px-4 py-2 rounded-lg; color-scheme: dark; }
+input:not(.special), textarea, select { @apply border-1 px-4 py-2 rounded-lg; color-scheme: dark; }
 select { @apply pr-4 }
 button:focus, input:focus, textarea:focus, select:focus { outline: none }
 
-.btn { @apply px-4 py-2 rounded-lg cursor-pointer bg-purple hover:bg-purple/50 transition-all duration-300 w-full }
-.btn-danger { @apply px-4 py-2 rounded-lg cursor-pointer bg-red hover:bg-red/50 transition-all duration-300 w-full }
+.btn { @apply px-4 py-2 rounded-lg cursor-pointer bg-purple hover:bg-purple/50 transition-all duration-300 }
+.btn-good { @apply px-4 py-2 rounded-lg cursor-pointer bg-green-600 hover:bg-green-600/50 transition-all duration-300 }
+.btn-good-special { @apply rounded-lg cursor-pointer bg-green-600 hover:bg-green-600/50 transition-all duration-300 }
+.btn-danger-special { @apply rounded-lg cursor-pointer bg-red hover:bg-red/50 transition-all duration-300 }
+.btn-danger { @apply px-4 py-2 rounded-lg cursor-pointer bg-red hover:bg-red/50 transition-all duration-300 }

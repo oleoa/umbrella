@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation'
 
 const authSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
-  password: z.string().min(6, { message: 'Password must be at least 6 characters' }),
+  password: z.string().min(6, { message: 'Password must have at least 6 characters' }),
 })
 
 export async function login(prevState: FormState, formData: FormData): Promise<FormState> {
@@ -24,7 +24,6 @@ export async function login(prevState: FormState, formData: FormData): Promise<F
       message: null,
       success: false,
       errors: errors,
-      redirect: null,
     }
   }
 
@@ -35,7 +34,6 @@ export async function login(prevState: FormState, formData: FormData): Promise<F
       message: null,
       success: false,
       errors: [error.message],
-      redirect: null,
     }
   }
 
@@ -55,7 +53,6 @@ export async function signup(prevState: FormState, formData: FormData): Promise<
       message: null,
       success: false,
       errors: errors,
-      redirect: null,
     }
   }
 
@@ -66,7 +63,6 @@ export async function signup(prevState: FormState, formData: FormData): Promise<
       message: null,
       success: false,
       errors: ['Error creating your account'],
-      redirect: null,
     }
   }
 
@@ -77,7 +73,6 @@ export async function signup(prevState: FormState, formData: FormData): Promise<
       message: null,
       success: false,
       errors: ['Error creating your profile'],
-      redirect: null,
     }
   }
 

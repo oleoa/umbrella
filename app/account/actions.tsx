@@ -8,8 +8,8 @@ import { FormState } from '@/interfaces'
 import { redirect } from 'next/navigation'
 
 const authSchema = z.object({
-  first_name: z.string().min(2, { message: 'First name must be at least 2 characters' }),
-  last_name: z.string().min(2, { message: 'Last name must be at least 2 characters' }),
+  first_name: z.string().min(2, { message: 'First name must have at least 2 characters' }),
+  last_name: z.string().min(2, { message: 'Last name must have at least 2 characters' }),
   birthday: z.string().date(),
   currency: z.string().refine((val) => ['€', '$'].includes(val), { message: 'Currency not recognized' }),
 })
@@ -26,7 +26,6 @@ export async function updateUser(prevState: FormState, formData: FormData): Prom
       message: null,
       success: false,
       errors: errors,
-      redirect: null,
     }
   }
 
@@ -39,17 +38,15 @@ export async function updateUser(prevState: FormState, formData: FormData): Prom
       message: null,
       success: false,
       errors: ['User could not be found'],
-      redirect: null,
     }
   }
 
-  const { error } = await supabase.from('users').update(validatedAccount.data).eq('user_id', user.id).select()
+  const { error } = await supabase.from('users').update(validatedAccount.data).eq('user_id', user.id)
   if (error) {
     return {
       message: null,
       success: false,
       errors: [error.message],
-      redirect: null,
     }
   }
 
@@ -58,7 +55,6 @@ export async function updateUser(prevState: FormState, formData: FormData): Prom
     message: 'Successfully updated your account',
     success: true,
     errors: [],
-    redirect: null,
   }
 }
 
@@ -70,7 +66,6 @@ export async function signoutUser(): Promise<FormState> {
       message: null,
       success: false,
       errors: ['Could not sign out'],
-      redirect: null,
     }
   }
 

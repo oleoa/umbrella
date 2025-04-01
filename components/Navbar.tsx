@@ -9,9 +9,14 @@ export default async function Navbar() {
 
   return (
     <nav>
-      <Link href="/">Index</Link>
-      {!user && <Link href="/auth">Auth</Link>}
-      {user && <Link href="/account">Account</Link>}
+      <Link href='/'>Index</Link>
+      {!user && <Link href='/auth'>Auth</Link>}
+      {user && (
+        <>
+          <Link href='/budgetings'>Budgetings</Link>
+          <Link href='/account'>Account</Link>
+        </>
+      )}
     </nav>
   )
 }
