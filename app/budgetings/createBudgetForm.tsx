@@ -1,7 +1,7 @@
 'use client'
 
 import { useActionState, useEffect, useState } from 'react'
-import { create } from './actions'
+import { createBudget } from './actions'
 import { Budget, FormState } from '@/interfaces'
 import { useSnackbar } from '@/components/SnackbarProvider'
 
@@ -18,11 +18,11 @@ const initialNewBudget: Budget = {
   ends_at: '',
 }
 
-export default function Creating() {
+export default function CreateBudgetForm() {
   const { snackbar } = useSnackbar()
 
   const [isVisible, setIsVisible] = useState(false)
-  const [state, action, pending] = useActionState<FormState, FormData>(create, initialState)
+  const [state, action, pending] = useActionState<FormState, FormData>(createBudget, initialState)
 
   const [creatingBudget, setCreatingBudget] = useState<Budget>(initialNewBudget)
 

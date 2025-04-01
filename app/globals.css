@@ -31,7 +31,10 @@ select { @apply pr-4 }
 button:focus, input:focus, textarea:focus, select:focus { outline: none }
 
 .btn { @apply px-4 py-2 rounded-lg cursor-pointer bg-purple hover:bg-purple/50 transition-all duration-300 }
+.btn-special { @apply rounded-lg cursor-pointer bg-purple hover:bg-purple/50 transition-all duration-300 }
 .btn-good { @apply px-4 py-2 rounded-lg cursor-pointer bg-green-600 hover:bg-green-600/50 transition-all duration-300 }
 .btn-good-special { @apply rounded-lg cursor-pointer bg-green-600 hover:bg-green-600/50 transition-all duration-300 }
 .btn-danger-special { @apply rounded-lg cursor-pointer bg-red hover:bg-red/50 transition-all duration-300 }
 .btn-danger { @apply px-4 py-2 rounded-lg cursor-pointer bg-red hover:bg-red/50 transition-all duration-300 }
+
+.budget { @apply border-1 rounded-lg h-8 w-full px-4; color-scheme: dark; }

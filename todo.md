@@ -1,4 +1,0 @@
-- [ ] OAuth
-- [ ] Creating budgets
-- [ ] Creating types
-- [ ] Creating transactions

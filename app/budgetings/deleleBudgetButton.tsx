@@ -1,7 +1,7 @@
 'use client'
 
 import { useActionState, useEffect } from 'react'
-import { del } from './actions'
+import { deleteBudget } from './actions'
 import { FormState } from '@/interfaces'
 import { useSnackbar } from '@/components/SnackbarProvider'
 
@@ -15,9 +15,9 @@ interface Props {
   budget_id: number
 }
 
-export default function Del({ budget_id }: Props) {
+export default function DeleleBudgetButton({ budget_id }: Props) {
   const { snackbar } = useSnackbar()
-  const [state, action, pending] = useActionState<FormState, FormData>(del, initialState)
+  const [state, action, pending] = useActionState<FormState, FormData>(deleteBudget, initialState)
 
   useEffect(() => {
     if (state.success === false) state.errors.forEach((error) => snackbar.error(error))

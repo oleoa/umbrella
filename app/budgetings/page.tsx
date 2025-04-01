@@ -1,33 +1,57 @@
 import { createClient } from '@/utils/supabase/server'
-import Creating from './creating'
+
 import { Budget } from '@/interfaces'
-import Del from './del'
+
+import CreateBudgetForm from './createBudgetForm'
+import DeleleBudgetButton from './deleleBudgetButton'
+import CreateTypeForm from './createTypeForm'
+import TypeLine from './typeLine'
+
+import { redirect } from 'next/navigation'
 
 export default async function Budgetings() {
   const supabase = await createClient()
-  const { data: budgets, error } = await supabase.from('budgets').select()
-  if (error) console.error(error)
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) return redirect('/auth')
+  const { data: account, error: account_error } = await supabase.from('users').select().eq('user_id', user.id).single()
+  if (account_error || !account) return console.error(account_error)
+
+  const { data: budgets, error: budget_error } = await supabase.from('budgets').select(`
+    id,
+    user_id,
+    name,
+    starts_at,
+    ends_at,
+    types (
+      id,
+      budget_id,
+      name,
+      goal
+    )
+  `)
+  if (budget_error) console.error(budget_error)
 
   return (
     <main className='pt-8 flex flex-col gap-8'>
       <div className='flex justify-center relative'>
         <h1>Your budgets</h1>
-        <Creating />
+        <CreateBudgetForm />
       </div>
-      <div className='grid grid-cols-3 gap-4'>
+      <div className='grid grid-cols-2 gap-4'>
         {budgets &&
           budgets.map((budget: Budget) => {
             return (
-              <div key={budget.id} className='border-2 rounded-lg px-4 py-2 flex flex-col gap-4'>
+              <div key={budget.id} className='border-2 rounded-lg px-4 py-2 flex flex-col gap-2 h-fit'>
                 <div className='flex justify-start relative pt-2'>
                   <h4>{budget.name}</h4>
-                  <Del budget_id={budget.id} />
+                  <DeleleBudgetButton budget_id={budget.id} />
                 </div>
-                <form className='flex gap-4 py-2'>
-                  <input type='hidden' name='budget_id' value={budget.id} />
-                  <input type='text' name='name' className='special border-2 rounded-lg h-8 w-full px-4' />
-                  <button className='btn-good-special px-4'>Add</button>
-                </form>
+                {budget.types.map((type) => (
+                  <TypeLine type={type} key={type.id} currency={account.currency} />
+                ))}
+                <CreateTypeForm budget_id={budget.id} currency={account.currency} />
               </div>
             )
           })}
