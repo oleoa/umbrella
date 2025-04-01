@@ -4,11 +4,19 @@
   --color-white: #fff9fb;
   --color-black: #0e0f12;
   --color-red: #bb0a21;
-  --color-light-purple: #ca3cff;
-  --color-dark-purple: #742395;
+  --color-purple: #ca3cff
+}
+
+select {
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
 }
 
 body { @apply bg-black text-white }
+nav { @apply fixed top-0 left-0 h-16 w-screen bg-purple flex items-center justify-end px-64 gap-4 }
+main { @apply px-64 }
+footer { @apply px-64 }
 
 h1 { @apply text-5xl }
 h2 { @apply text-4xl }
@@ -17,11 +25,10 @@ h4 { @apply text-2xl }
 h5 { @apply text-xl }
 h6 { @apply text-lg }
 
-a { @apply text-blue-600 hover:text-blue-400 underline }
-
-form { @apply flex flex-col gap-4 }
 label { @apply flex items-center justify-start text-xl }
-input, textarea { @apply border-1 px-4 py-2 rounded-lg }
-button:focus, input:focus, textarea:focus { outline: none }
+input, textarea, select { @apply border-1 px-4 py-2 rounded-lg; color-scheme: dark; }
+select { @apply pr-4 }
+button:focus, input:focus, textarea:focus, select:focus { outline: none }
 
-.btn { @apply px-4 py-2 rounded-lg cursor-pointer }
+.btn { @apply px-4 py-2 rounded-lg cursor-pointer bg-purple hover:bg-purple/50 transition-all duration-300 w-full }
+.btn-danger { @apply px-4 py-2 rounded-lg cursor-pointer bg-red hover:bg-red/50 transition-all duration-300 w-full }
