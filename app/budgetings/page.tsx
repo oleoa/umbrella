@@ -1,13 +1,11 @@
 import { createClient } from '@/utils/supabase/server'
 
-import { Budget } from '@/interfaces'
-
 import CreateBudgetForm from './createBudgetForm'
-import DeleleBudgetButton from './deleleBudgetButton'
-import CreateTypeForm from './createTypeForm'
-import TypeLine from './typeLine'
 
 import { redirect } from 'next/navigation'
+import AllBudgets from './budget'
+import { Budget } from '@/interfaces'
+import BudgetCard from './budget'
 
 export default async function Budgetings() {
   const supabase = await createClient()
@@ -39,23 +37,7 @@ export default async function Budgetings() {
         <h1>Your budgets</h1>
         <CreateBudgetForm />
       </div>
-      <div className='grid grid-cols-2 gap-4'>
-        {budgets &&
-          budgets.map((budget: Budget) => {
-            return (
-              <div key={budget.id} className='border-2 rounded-lg px-4 py-2 flex flex-col gap-2 h-fit'>
-                <div className='flex justify-start relative pt-2'>
-                  <h4>{budget.name}</h4>
-                  <DeleleBudgetButton budget_id={budget.id} />
-                </div>
-                {budget.types.map((type) => (
-                  <TypeLine type={type} key={type.id} currency={account.currency} />
-                ))}
-                <CreateTypeForm budget_id={budget.id} currency={account.currency} />
-              </div>
-            )
-          })}
-      </div>
+      <div className='grid grid-cols-2 gap-4'>{budgets && budgets.map((budget: Budget) => <BudgetCard key={budget.id} budget={budget} account={account} />)}</div>
     </main>
   )
 }

@@ -8,7 +8,7 @@ export interface Account {
   first_name: string | null
   last_name: string | null
   birthday: string | null
-  currency: string | null
+  currency: '$' | '€'
 }
 
 export interface Budget {

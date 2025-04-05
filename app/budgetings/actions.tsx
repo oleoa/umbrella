@@ -77,15 +77,14 @@ export async function deleteBudget(prevState: FormState, formData: FormData): Pr
   }
 }
 
-const typeSchema = z.object({
-  id: z.string(),
+const createTypeSchema = z.object({
   budget_id: z.string(),
   name: z.string().min(1, { message: 'Name must have at least 1 characters' }),
   goal: z.string(),
 })
 export async function createType(prevState: FormState, formData: FormData): Promise<FormState> {
   const data = Object.fromEntries(formData)
-  const validatedData = typeSchema.safeParse(data)
+  const validatedData = createTypeSchema.safeParse(data)
   if (!validatedData.success) {
     const formFieldErrors = validatedData.error.flatten().fieldErrors
     const errors = Object.values(formFieldErrors || {})
@@ -115,9 +114,16 @@ export async function createType(prevState: FormState, formData: FormData): Prom
     errors: [],
   }
 }
+
+const updateTypeSchema = z.object({
+  id: z.string({ message: 'Type id required' }),
+  budget_id: z.string({ message: 'Budget id required' }),
+  name: z.string().min(1, { message: 'Name must have at least 1 characters' }),
+  goal: z.string(),
+})
 export async function updateType(prevState: FormState, formData: FormData): Promise<FormState> {
   const data = Object.fromEntries(formData)
-  const validatedData = typeSchema.safeParse(data)
+  const validatedData = updateTypeSchema.safeParse(data)
   if (!validatedData.success) {
     const formFieldErrors = validatedData.error.flatten().fieldErrors
     const errors = Object.values(formFieldErrors || {})
